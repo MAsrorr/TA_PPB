@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     refreshTokens: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Admin',
+    modelName: 'admins',
   });
   return Admin;
 };

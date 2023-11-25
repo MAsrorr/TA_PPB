@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      peserta_magang.hasMany(models.Presensi, {
+      peserta_magang.hasMany(models.presensis, {
         foreignKey: 'p_id', // Name of the foreign key in Presensi table
         as: 'presensimagang', // Alias for the association
       });
-      peserta_magang.hasMany(models.Status_tugas, {
+      peserta_magang.hasMany(models.status_tugas, {
         foreignKey: 'p_id', // Name of the foreign key in Presensi table
         as: 'status_tugas', // Alias for the association
       });
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     refreshTokens: DataTypes.STRING    
   }, {
     sequelize,
-    modelName: 'peserta_magang',
+    modelName: 'peserta_magangs',
   });
   return peserta_magang;
 };

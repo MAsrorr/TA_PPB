@@ -6,7 +6,7 @@ async function login(req, res) {
     try {
         const role = req.body.role;
         if (role === 'peserta_magang' || role === 'admin') {
-            const userModel = role === 'peserta_magang' ? models.peserta_magang : models.admin;
+            const userModel = role === 'peserta_magang' ? models.peserta_magangs : models.admins;
 
             const user = await userModel.findOne({ where: { username: req.body.username } });
             if (!user) {
