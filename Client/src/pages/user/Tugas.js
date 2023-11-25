@@ -11,17 +11,22 @@ import axios from "axios";
 import { axiosJWTuser } from "../../config/axiosJWT";
 import { TabTitle } from "../../TabName";
 import { isUnauthorizedError } from "../../config/errorHandling";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import load from "../../Assets/Loading_Screen.gif"
 import icon from "../../Assets/icon.png"
-
+import "../../Components/SideBar/Navbar.css"
 
 function Tugas() {
   TabTitle("Tugas");
   const [showNav, setShowNav] = useState(true);
   const [cardData, setData] = useState([]);
   const navigate = useNavigate();
-  // const [id, setID] = useState([]);
+  const location = useLocation();
+  const [activeLink, setActiveLink] = useState(location.pathname);
+
+  const handleNavLinkClick = (path) => {
+    setActiveLink(path);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,19 +91,27 @@ function Tugas() {
                 )}
               </a>
               <div className="nav_list">
-                <a href="homepage" className="nav_link">
+              <a href="homepage" target="_self"
+                  className={`nav_link ${activeLink === '/user/homepage' ? 'active' : ''}`} 
+                  onClick={() => handleNavLinkClick('user/homepage')}>
                   <i className="bi bi-house nav_icon" />
                   <span className="nav_name">Home</span>
                 </a>
-                <a href="presensi/riwayat" target="_self" className="nav_link">
+                <a href="presensi/riwayat" target="_self"
+                  className={`nav_link ${activeLink === '/user/presensi/riwayat' ? 'active' : ''}`}
+                  onClick={() => handleNavLinkClick('/user/presensi/riwayat')}>
                   <i className="bi bi-card-checklist nav_icon" />
                   <span className="nav_name">History Presensi</span>
                 </a>
-                <a href="presensi" target="_self" className="nav_link">
+                <a href="presensi" target="_self"
+                  className={`nav_link ${activeLink === '/user/presensi' ? 'active' : ''}`}
+                  onClick={() => handleNavLinkClick('/user/presensi')}>
                   <i className="bi bi-camera nav_icon" />
                   <span className="nav_name">Lakukan Presensi</span>
                 </a>
-                <a href="tugas" target="_self" className="nav_link">
+                <a href="tugas" target="_self"
+                  className={`nav_link ${activeLink === '/user/tugas' ? 'active' : ''}`}
+                  onClick={() => handleNavLinkClick('/user/presensi')}>
                   <i className="bi bi-list-task nav_icon" />
                   <span className="nav_name">Penugasan</span>
                 </a>
