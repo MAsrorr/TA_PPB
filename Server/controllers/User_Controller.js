@@ -6,11 +6,11 @@ const Validator = require('fastest-validator');
 
 function showTugasList(req,res){
     const id = req.params.id;
-    models.Status_tugas.findAll({
+    models.status_tugas.findAll({
       where:{p_id:id},
       order: [['id', 'DESC']],        
       include: [{
-        model: models.Tugas,
+        model: models.tugas,
         as: 'tugas',
     }]
     }).then(result =>{
@@ -43,7 +43,7 @@ function showTugas(req, res){
 function showPresensi(req, res){
     const id = req.params.id;
     if (true){
-        models.Presensi.findAll({where:{p_id:id}}).then(result =>{
+        models.presensis.findAll({where:{p_id:id}}).then(result =>{
             res.status(200).json({
                 presensi:result
             });
@@ -159,7 +159,7 @@ async function doPresensi(req, res, url) {
       }
   
       if (Object.keys(presensi).length > 0) {
-        models.Presensi.update(presensi, { where: { p_id: pid, tanggal: time.format('YYYY-MM-DD') } })
+        models.presensia.update(presensi, { where: { p_id: pid, tanggal: time.format('YYYY-MM-DD') } })
           .then((result) => {
             res.status(201).json({
               message: 'Presensi successful',
@@ -198,7 +198,7 @@ function doTugas(req, res, url){
         tugas_url: baseUrl + fileName,
         status_pengerjaan: true
     }
-    models.Status_tugas.update(tugas, {where:{p_id:id, t_id: tid}}).then(result => {
+    models.status_tugas.update(tugas, {where:{p_id:id, t_id: tid}}).then(result => {
         res.status(201).json({
             message: "Tugas Uploaded successfully"
         });
@@ -232,7 +232,7 @@ function editPassword(req, res){
                     });
                 }
 
-                models.peserta_magang.update(updatedPeserta, {where:{id:id}}).then(result =>{
+                models.peserta_magangs.update(updatedPeserta, {where:{id:id}}).then(result =>{
                     res.status(200).json({
                         message: "Peserta Magang updated successfully"
                     });
