@@ -22,7 +22,7 @@ const Login = () => {
     const Auth = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/account/login', {
+            await axios.post('https://silly-elk-cummerbund.cyclic.app/account/login', {
                 "username": username,
                 "password": password,
                 "role": role
@@ -41,7 +41,7 @@ const Login = () => {
 
     const Logout = async () => {
         try {
-          await axios.delete('http://localhost:3000/account/logout');
+          await axios.delete('https://silly-elk-cummerbund.cyclic.app/account/logout');
         } catch (error) {
           console.log("Error during logout:", error);
         }

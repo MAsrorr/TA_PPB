@@ -23,7 +23,7 @@ const EditUser = ({
     useEffect(() => {
         if (userId) {
             axiosJWTadmin
-                .get(`http://localhost:3000/admin/peserta/${userId}`)
+                .get(`https://silly-elk-cummerbund.cyclic.app/admin/peserta/${userId}`)
                 .then((response) => {
                     setUserData(response.data.peserta_magang);
                 })
@@ -37,7 +37,7 @@ const EditUser = ({
         e.preventDefault();
         try {
             await axiosJWTadmin.patch(
-                `http://localhost:3000/admin/peserta/${userId}/edit`,
+                `https://silly-elk-cummerbund.cyclic.app/admin/peserta/${userId}/edit`,
                 userData
             );
             updateUserData(userData);

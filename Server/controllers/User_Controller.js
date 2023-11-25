@@ -67,7 +67,7 @@ async function doPresensi(req, res, url) {
       // const time = moment(new Date("2023-10-30T07:59:59.0000"));
       const pid = req.params.id;
       // const baseUrl = process.env.APIDISKOMINFO;
-      const baseUrl = "http://localhost:3000/";
+      const baseUrl = "https://silly-elk-cummerbund.cyclic.app/";
       const fileName = url.replace('\\', '/');
       const hari = time.day();
       const currentDate = moment(time); // Menggunakan waktu dari WorldTimeAPI
@@ -191,7 +191,7 @@ function doTugas(req, res, url){
     const tid = req.params.tid;
 
     // const baseUrl = process.env.APIDISKOMINFO;
-    const baseUrl = "http://localhost:3000/";
+    const baseUrl = "https://silly-elk-cummerbund.cyclic.app/";
     const fileName = url.replace('\\' , '/');
 
     const tugas = {

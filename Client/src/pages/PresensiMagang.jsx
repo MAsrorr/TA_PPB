@@ -60,8 +60,8 @@ export const PresensiMagang = () => {
 
   const exportPresensi = async () => {
     const requestUrl = searchDate
-      ? `http://localhost:3000/admin/export-presensi?tanggal=${searchDate}`
-      : 'http://localhost:3000/admin/export-presensi';
+      ? `https://silly-elk-cummerbund.cyclic.app/admin/export-presensi?tanggal=${searchDate}`
+      : 'https://silly-elk-cummerbund.cyclic.app/admin/export-presensi';
 
     const response = await axiosJWTadmin.get(requestUrl, {
       responseType: 'arraybuffer',
@@ -104,8 +104,8 @@ export const PresensiMagang = () => {
   const getUsers = async () => {
     setLoading(true);
     const url = searchDate
-      ? `http://localhost:3000/admin/presensi?tanggal=${searchDate}`
-      : 'http://localhost:3000/admin/presensi';
+      ? `https://silly-elk-cummerbund.cyclic.app/admin/presensi?tanggal=${searchDate}`
+      : 'https://silly-elk-cummerbund.cyclic.app/admin/presensi';
 
     try {
       const response = await axiosJWTadmin.get(url);
@@ -120,7 +120,7 @@ export const PresensiMagang = () => {
 
   const getPresensiBelum = async () => {
     try {
-      const response = await axiosJWTadmin.get('http://localhost:3000/admin/presensi/negatif');
+      const response = await axiosJWTadmin.get('https://silly-elk-cummerbund.cyclic.app/admin/presensi/negatif');
       setUsers(response.data.presensi);
     } catch (error) {
       console.error('Error fetching data:', error);

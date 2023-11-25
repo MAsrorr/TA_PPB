@@ -60,7 +60,7 @@ export const Penugasan = () => {
     try {
       if (tugasId) {
         const response = await axiosJWTadmin.get(
-          `http://localhost:3000/admin/tugas/${tugasId}/export-tugas`,
+          `https://silly-elk-cummerbund.cyclic.app/admin/tugas/${tugasId}/export-tugas`,
           {
             responseType: 'arraybuffer'
           }
@@ -129,7 +129,7 @@ export const Penugasan = () => {
   const addTugas = async (e) => {
     e.preventDefault();
     try {
-      await axiosJWTadmin.post("http://localhost:3000/admin/tugas/add", formData);
+      await axiosJWTadmin.post("https://silly-elk-cummerbund.cyclic.app/admin/tugas/add", formData);
       getTugas();
       setShowTaskForm(false);
       toast.success("Tugas berhasil ditambahkan!", { position: "top-right" });
@@ -140,7 +140,7 @@ export const Penugasan = () => {
 
   const getTugas = async () => {
     try {
-      const response = await axiosJWTadmin.get("http://localhost:3000/admin/tugas");
+      const response = await axiosJWTadmin.get("https://silly-elk-cummerbund.cyclic.app/admin/tugas");
       setTugas(response.data.tugas);
     } catch (error) {
       navigate("/");
@@ -152,7 +152,7 @@ export const Penugasan = () => {
   const getTugasById = async (taskId, index) => {
     try {
       const response = await axiosJWTadmin.get(
-        `http://localhost:3000/admin/tugas/${taskId}`
+        `https://silly-elk-cummerbund.cyclic.app/admin/tugas/${taskId}`
       );
       setStatusTugas(response.data.tugas);
       setIdTugas(taskId);

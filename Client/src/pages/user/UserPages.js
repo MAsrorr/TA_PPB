@@ -49,7 +49,7 @@ const UserPages = () => {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/account/token',{
+      const response = await axios.get('https://silly-elk-cummerbund.cyclic.app/account/token',{
         headers: {
           'role': "peserta_magang"
         }
@@ -82,14 +82,14 @@ const UserPages = () => {
 
   const uploadPassword = async () => {
     try {
-      const ambilid = await axios.get('http://localhost:3000/account/token', {
+      const ambilid = await axios.get('https://silly-elk-cummerbund.cyclic.app/account/token', {
         headers: {
           'role': "peserta_magang"
         },
       });
       const decoded = jwt_decode(ambilid.data.token);
       
-      const response = await axiosJWTuser.patch(`http://localhost:3000/user/peserta/${decoded.userId}/edit`, formData);
+      const response = await axiosJWTuser.patch(`https://silly-elk-cummerbund.cyclic.app/user/peserta/${decoded.userId}/edit`, formData);
       console.log('Server Response:', response.data);
       showSuccessNotification("Berhasil menggati password")
     } catch (error) {

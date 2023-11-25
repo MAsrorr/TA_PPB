@@ -33,7 +33,7 @@ const Homepage = () => {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/account/token',{
+      const response = await axios.get('https://silly-elk-cummerbund.cyclic.app/account/token',{
         headers: {
           'role': "admin"
         },
