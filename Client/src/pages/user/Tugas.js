@@ -26,7 +26,7 @@ function Tugas() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const ambilid = await axios.get('https://api.diskominfo-smg-magang.cloud/account/token', {
+        const ambilid = await axios.get('http://localhost:3000/account/token', {
           headers: {
             'role': "peserta_magang"
           },
@@ -34,7 +34,7 @@ function Tugas() {
         const decoded = jwt_decode(ambilid.data.token);
 
         const response = await axiosJWTuser.get(
-          `https://api.diskominfo-smg-magang.cloud/user/tugas-list/${decoded.userId}`
+          `http://localhost:3000/user/tugas-list/${decoded.userId}`
         );
         setData(response.data.tugas);
         // console.log(response.data.tugas);

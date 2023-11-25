@@ -25,6 +25,7 @@ import icon from "../../Assets/icon.png"
 const UserPages = () => {
   TabTitle('Homepage');
   const [nama, setNama] = useState('');
+  const [image, setImage] = useState('');
   const [username, setuserName] = useState('');
   const navigate = useNavigate();
   const [showNav, setShowNav] = useState(true);
@@ -43,14 +44,16 @@ const UserPages = () => {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get('https://api.diskominfo-smg-magang.cloud/account/token',{
+      const response = await axios.get('http://localhost:3000/account/token',{
         headers: {
           'role': "peserta_magang"
         }
       });
       const decoded = jwt_decode(response.data.token);
+      console.log(decoded)
       setNama(decoded.nama);
       setuserName(decoded.username);
+      setImage(decoded.image);
   
     } catch (error) {
       if (isUnauthorizedError(error)){
@@ -74,14 +77,14 @@ const UserPages = () => {
 
   const uploadPassword = async () => {
     try {
-      const ambilid = await axios.get('https://api.diskominfo-smg-magang.cloud/account/token', {
+      const ambilid = await axios.get('http://localhost:3000/account/token', {
         headers: {
           'role': "peserta_magang"
         },
       });
       const decoded = jwt_decode(ambilid.data.token);
       
-      const response = await axiosJWTuser.patch(`https://api.diskominfo-smg-magang.cloud/user/peserta/${decoded.userId}/edit`, formData);
+      const response = await axiosJWTuser.patch(`http://localhost:3000/user/peserta/${decoded.userId}/edit`, formData);
       console.log('Server Response:', response.data);
       showSuccessNotification("Berhasil menggati password")
     } catch (error) {
@@ -208,7 +211,7 @@ const showErrorNotification = (message) => {
               </div>
               <div className="space"></div>
               <div className="user-image">
-                <img src={icon} alt="" />
+                <img src={image} alt="" />
               </div>
             </div>
             <div className="action-buttons">
