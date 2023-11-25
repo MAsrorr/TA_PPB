@@ -102,7 +102,7 @@ const refreshToken = async (req, res) => {
         const refreshTokenCookie = req.cookies.token;
         if (!refreshTokenCookie) {
             return res.status(401).json({
-                message: "Missing or invalid refresh token"
+                message: "Missing or invalid refresh token"+req.cookies.token
             });
         }
 

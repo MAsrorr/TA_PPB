@@ -112,7 +112,7 @@ const Login = () => {
                                     </div>
                                 </div>
                                 <div className="field">
-                                    <button className="button is-success is-fullwidth">Login</button>
+                                    <button className="button is-success is-fullwidth" onClick={Auth}>Login</button>
                                 </div>
                             </form>
                         </div>
