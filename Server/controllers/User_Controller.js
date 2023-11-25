@@ -232,7 +232,7 @@ function editPassword(req, res){
                     });
                 }
 
-                models.peserta_magang.update(updatedPeserta, {where:{id:id}}).then(result =>{
+                models.peserta_magangs.update(updatedPeserta, {where:{id:id}}).then(result =>{
                     res.status(200).json({
                         message: "Peserta Magang updated successfully"
                     });
