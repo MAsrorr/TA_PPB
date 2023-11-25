@@ -6,7 +6,7 @@ async function login(req, res) {
     try {
         const role = req.body.role;
         if (role === 'peserta_magang' || role === 'admin') {
-            const userModel = role === 'peserta_magang' ? models.Peserta_Magang : models.Admin;
+            const userModel = role === 'peserta_magang' ? models.peserta_magang : models.admin;
 
             const user = await userModel.findOne({ where: { username: req.body.username } });
             if (!user) {
@@ -72,7 +72,7 @@ async function logout(req, res) {
             const username = decodedToken.username;
 
             if (role === 'peserta_magang' || role === 'admin') {
-                const userModel = role === 'peserta_magang' ? models.Peserta_Magang : models.Admin;
+                const userModel = role === 'peserta_magang' ? models.peserta_magang : models.Admin;
                 const user = await userModel.findOne({ where: { username: username } });
     
                 if (!user) {
@@ -113,7 +113,7 @@ const refreshToken = async (req, res) => {
                 });
             }
 
-            const user = await models.Peserta_Magang.findOne({ where: { username: decoded.username } }) || await models.Admin.findOne({ where: { username: decoded.username } });
+            const user = await models.peserta_magang.findOne({ where: { username: decoded.username } }) || await models.Admin.findOne({ where: { username: decoded.username } });
             if (!user) {
                 return res.status(403).json({
                     message: "Invalid user"
