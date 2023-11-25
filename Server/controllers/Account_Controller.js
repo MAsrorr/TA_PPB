@@ -56,7 +56,7 @@ async function login(req, res) {
 async function logout(req, res) {
     try {
         // Periksa token akses dalam header
-        const refreshToken = req.cookies.token;
+        const refreshToken = req.body.token;
         
         if (!refreshToken) {
             return res.status(204).json({ message: "Token penyegar tidak ditemukan." });
@@ -99,7 +99,7 @@ const refreshToken = async (req, res) => {
     };
 
     try {
-        const refreshTokenCookie = req.cookies.token;
+        const refreshTokenCookie = req.body.token;
         if (!refreshTokenCookie) {
             return res.status(401).json({
                 message: "Missing or invalid refresh token"+req.cookies.token

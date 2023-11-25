@@ -371,7 +371,7 @@ async function showCalonPesertaAll(req, res) {
     statusCheck(req, res);
     const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
     const currentDate = moment.tz(response.data.datetime, 'Asia/Jakarta'); // Get the current date and time
-    await models.peserta_magang.findAll({
+    await models.peserta_magangs.findAll({
         where: {
             tanggal_mulai: {
                 [Op.gt]: currentDate, // [Op.lt] stands for less than
