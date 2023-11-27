@@ -6,7 +6,10 @@ const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser(null, {
+    sameSite: 'None'
+}));
+// app.use(cookieParser());
 
 const accountRoute = require('./routes/Account');
 const adminRoute = require('./routes/Admin');
@@ -23,5 +26,6 @@ app.use("/admin",adminRoute);
 app.use("/user",userRoute);
 app.use("/images",imageRoute);
 app.use("/uploads", express.static('uploads'));
+res.header('Access-Control-Allow-Credentials', true);
 
 module.exports = app;

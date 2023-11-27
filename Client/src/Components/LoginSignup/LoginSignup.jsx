@@ -31,7 +31,8 @@ const Login = () => {
             if (role === "admin") {
                 navigate('/homepage'); 
             } else if (role === "peserta_magang") {
-                navigate('/user/homepage'); }
+                navigate('/user/homepage'); 
+            }
         } catch (error) {
             if (error.response) {
                 setMsg(error.response.data.message);
