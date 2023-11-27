@@ -27,12 +27,14 @@ async function login(req, res) {
                 username: user.username,
                 userId: user.id,
                 role: role
+
             }, process.env.JWT_KEY, {
                 expiresIn: '15m' // Set the token expiration time (e.g., 15 minutes)
             });
             res.cookie('token', token, {
                 httpOnly: true,
-                maxAge: 15 * 60 * 1000 // 15 menit
+                maxAge: 15 * 60 * 1000, // 15 menit
+                sameSite: 'None'
             });
 
             res.status(200).json({
