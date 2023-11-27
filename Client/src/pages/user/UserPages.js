@@ -50,7 +50,7 @@ const UserPages = () => {
   const refreshToken = async () => {
     try {
       const response = await axios.get('https://silly-elk-cummerbund.cyclic.app/account/token',{
-        withCredentials: true,
+        // withCredentials: true,
         headers: {
           'role': "peserta_magang"
         }

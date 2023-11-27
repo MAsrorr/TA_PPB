@@ -6,9 +6,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cookieParser(null, {
-    sameSite: 'None'
-}));
+app.use(cookieParser());
 // app.use(cookieParser());
 
 const accountRoute = require('./routes/Account');
@@ -17,7 +15,7 @@ const userRoute = require('./routes/User');
 const imageRoute = require('./routes/Image');
 const corsOptions = {
     credentials: true, // Mengizinkan pengiriman kredensial (kuki, header, dll.)
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://192.168.1.27:3000', '*'],
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://192.168.1.27:3000',],
 };
 
 app.use(cors(corsOptions));
