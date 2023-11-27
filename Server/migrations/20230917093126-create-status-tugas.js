@@ -12,7 +12,7 @@ module.exports = {
       p_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'peserta_magangs', // Nama tabel lain yang akan dijadikan referensi
+          model: 'Peserta_Magangs', // Nama tabel lain yang akan dijadikan referensi
           key: 'id',          // Nama kolom yang akan dijadikan referensi
         }
       },

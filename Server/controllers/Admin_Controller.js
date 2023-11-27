@@ -10,7 +10,7 @@ const fs = require('fs');
 const axios = require('axios');
 
 function showAdmin(req,res){
-    models.admins.findAll().then(result =>{
+    models.Admin.findAll().then(result =>{
         res.status(200).json({
             admin:result
         });
@@ -25,7 +25,7 @@ function showAdmin(req,res){
 function showAdminById(req, res){
     const id = req.params.id;
 
-    models.admins.findByPk(id).then(result =>{
+    models.Admin.findByPk(id).then(result =>{
         res.status(200).json({
             admin:result
         });
@@ -38,13 +38,13 @@ function showAdminById(req, res){
 }
 
 function addAdmin(req, res,){
-    models.admins.findOne({where:{username: req.body.username}}).then(result =>{
+    models.Admin.findOne({where:{username: req.body.username}}).then(result =>{
         if (result){
             res.status(409).json({
                 message: 'dah ada email bang'
             })        
         }else{
-            models.peserta_magangs.findOne({where:{username: req.body.username}}).then(result =>{
+            models.Peserta_Magang.findOne({where:{username: req.body.username}}).then(result =>{
                 if (result){
                     res.status(409).json({
                         message: 'dah ada email bang'
@@ -74,7 +74,7 @@ function addAdmin(req, res,){
                                 });
                             }
                         
-                            models.admins.create(admin).then(result => {
+                            models.Admin.create(admin).then(result => {
                                 res.status(201).json({
                                     message: "admin created successfully"
                                 });
@@ -112,13 +112,13 @@ function editAdmin(req, res){
     if (username) {
         admin.username = username;
     }
-    models.admins.findOne({where:{username: req.body.username}}).then(result =>{
+    models.Admin.findOne({where:{username: req.body.username}}).then(result =>{
         if (result){
             res.status(409).json({
                 message: 'dah ada email bang'
             })        
         }else{
-            models.peserta_magangs.findOne({where:{username: req.body.username}}).then(result =>{
+            models.Peserta_Magang.findOne({where:{username: req.body.username}}).then(result =>{
                 if (result){
                     res.status(409).json({
                         message: 'dah ada email bang'
@@ -145,7 +145,7 @@ function editAdmin(req, res){
                                 });
                             }
                         
-                            models.admins.update(admin, {where:{id:id}}).then(result => {
+                            models.Admin.update(admin, {where:{id:id}}).then(result => {
                                 res.status(201).json({
                                     message: "admin updated successfully"
                                 });
@@ -175,13 +175,13 @@ function editAdmin(req, res){
 }
 
 async function addPeserta(req, res){
-    models.admins.findOne({where:{username: req.body.username}}).then (result =>{
+    models.Admin.findOne({where:{username: req.body.username}}).then (result =>{
         if (result){
             res.status(409).json({
                 message: 'dah ada email bang'
             })
         }else{
-            models.peserta_magangs.findOne({where:{username: req.body.username}}).then(result =>{
+            models.Peserta_Magang.findOne({where:{username: req.body.username}}).then(result =>{
                 if(result){
                     res.status(409).json({
                         message: 'dah ada email bang'
@@ -225,7 +225,7 @@ async function addPeserta(req, res){
                                     errors: validationResponse
                                 });
                             }else{
-                                const result_peserta = await models.peserta_magangs.create(peserta_magang);
+                                const result_peserta = await models.Peserta_Magang.create(peserta_magang);
                                 await addPresensiForPeserta(result_peserta, req, res);
                             }
                             
@@ -305,7 +305,7 @@ async function addPresensiForPeserta(result_peserta, req, res){
 function showPeserta(req, res){
     const id = req.params.id;
 
-    models.peserta_magangs.findByPk(id).then(result =>{
+    models.Peserta_Magang.findByPk(id).then(result =>{
         res.status(200).json({
             peserta_magang:result
         });
@@ -319,7 +319,7 @@ function showPeserta(req, res){
 
 async function showPesertaAll(req, res){
     statusCheck(req, res);
-    await models.peserta_magangs.findAll().then(result =>{
+    await models.Peserta_Magang.findAll().then(result =>{
         res.status(200).json({
             peserta_magang:result
         });
@@ -335,7 +335,7 @@ async function showPesertaAktifAll(req, res){
     statusCheck(req, res);
     const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
     const currentDate = moment.tz(response.data.datetime, 'Asia/Jakarta');
-    await models.peserta_magangs.findAll({where:{
+    await models.Peserta_Magang.findAll({where:{
       status_aktif:true, 
       tanggal_mulai: {
         [Op.lte]: currentDate
@@ -355,7 +355,7 @@ async function showPesertaAktifAll(req, res){
 
 async function showPesertaAlumniAll(req, res){
     statusCheck(req, res);
-    await models.peserta_magangs.findAll({where:{status_aktif:false}}).then(result =>{
+    await models.Peserta_Magang.findAll({where:{status_aktif:false}}).then(result =>{
         res.status(200).json({
             peserta_magang:result
         });
@@ -371,7 +371,7 @@ async function showCalonPesertaAll(req, res) {
     statusCheck(req, res);
     const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
     const currentDate = moment.tz(response.data.datetime, 'Asia/Jakarta'); // Get the current date and time
-    await models.peserta_magangs.findAll({
+    await models.Peserta_Magang.findAll({
         where: {
             tanggal_mulai: {
                 [Op.gt]: currentDate, // [Op.lt] stands for less than
@@ -481,7 +481,7 @@ async function editPeserta(req,res){
                     });
                 }
                 console.log("cek2");
-                await models.peserta_magang.update(updatedPeserta, {where:{id:id}});
+                await models.Peserta_Magang.update(updatedPeserta, {where:{id:id}});
                 console.log("cek");
                 await editPresensiForPeserta(updatedPeserta,id, req, res)
             } catch (error){
@@ -497,7 +497,7 @@ async function editPeserta(req,res){
 function deletePeserta(req, res){
     const id = req.params.id;
 
-    models.peserta_magang.destroy({where:{id:id}}).then(result =>{
+    models.Peserta_Magang.destroy({where:{id:id}}).then(result =>{
         res.status(200).json({
             message: "Peserta Magang deleted"
         });
@@ -514,7 +514,7 @@ async function showPresensiPerDay(req, res) {
     const tanggal = req.query.tanggal ? moment.tz(req.query.tanggal, 'Asia/Jakarta') : moment.tz(response.data.datetime, 'Asia/Jakarta');
 
     try {
-        const presensi = await models.peserta_magang.findAll({
+        const presensi = await models.Peserta_Magang.findAll({
             include: [{
                 model: models.Presensi,
                 as: 'presensimagang',
@@ -549,7 +549,7 @@ async function showPresensiBelum(req, res) {
     const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
     const tanggal = req.body.tanggal ? moment.tz(req.body.tanggal, 'Asia/Jakarta') : moment.tz(response.data.datetime, 'Asia/Jakarta');
     
-    const presensi = await models.peserta_magang.findAll({
+    const presensi = await models.Peserta_Magang.findAll({
       include: [{
         model: models.Presensi,
         as: 'presensimagang',
@@ -623,7 +623,7 @@ function showTugasAll(req, res){
 
 function showTugasStatusByTugas(req, res){
     const tid = req.params.id;
-    models.peserta_magang.findAll({
+    models.Peserta_Magang.findAll({
         where: {
             status_aktif:true
         },
@@ -687,7 +687,7 @@ async function addTugas(req, res, url) {
 
 async function addStatusToAll(result_tugas, req, res) {
     try {
-      const peserta = await models.peserta_magang.findAll({ where: { status_aktif: true } });
+      const peserta = await models.Peserta_Magang.findAll({ where: { status_aktif: true } });
   
       for (let i = 0; i < peserta.length; i++) {
         const status_tugas = {
@@ -738,8 +738,8 @@ function deleteTugas(req, res){
 async function statusCheck(req, res){
     try {
         const currentDate = moment(); // Get the current date and time
-        // Find all peserta_magang entities where tanggal_selesai is earlier than the current date
-        const outdatedPeserta = await models.peserta_magang.findAll({
+        // Find all Peserta_Magang entities where tanggal_selesai is earlier than the current date
+        const outdatedPeserta = await models.Peserta_Magang.findAll({
           where: {
             tanggal_selesai: {
               [Op.lt]: currentDate,
@@ -753,15 +753,15 @@ async function statusCheck(req, res){
             await peserta.update({ status_aktif: false });
           })
         );
-        console.log('Status of outdated peserta_magang entities updated successfully');
+        console.log('Status of outdated Peserta_Magang entities updated successfully');
       } catch (error) {
-        console.error('Error updating status of outdated peserta_magang entities:', error);
+        console.error('Error updating status of outdated Peserta_Magang entities:', error);
       }
 }
 
 async function exportAdmin(req, res) {
     try {
-      const results = await models.admins.findAll();
+      const results = await models.Admin.findAll();
   
       const workbook = new exceljs.Workbook();
       const sheet = workbook.addWorksheet('Admins');
@@ -806,7 +806,7 @@ async function exportAdmin(req, res) {
 async function exportPeserta(req, res) {
     try {
       statusCheck(req,res);
-      const results = await models.peserta_magang.findAll();
+      const results = await models.Peserta_Magang.findAll();
 
       const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
       const tanggal = moment.tz(response.data.datetime, 'Asia/Jakarta');
@@ -864,7 +864,7 @@ async function exportPeserta(req, res) {
       statusCheck(req, res);
       const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
       const tanggal = moment.tz(response.data.datetime, 'Asia/Jakarta');
-      const results = await models.peserta_magang.findAll({where:{
+      const results = await models.Peserta_Magang.findAll({where:{
         status_aktif:true,
         tanggal_mulai: {
           [Op.lte]: tanggal
@@ -923,7 +923,7 @@ async function exportPeserta(req, res) {
   async function exportPesertaAlumni(req, res) {
     try {
       statusCheck(req,res);
-      const results = await models.peserta_magang.findAll({where:{status_aktif:false}});
+      const results = await models.Peserta_Magang.findAll({where:{status_aktif:false}});
 
       const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
       const tanggal = moment.tz(response.data.datetime, 'Asia/Jakarta');
@@ -981,7 +981,7 @@ async function exportPeserta(req, res) {
       statusCheck(req,res);
       const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
       const tanggal = moment.tz(response.data.datetime, 'Asia/Jakarta');
-      const results = await models.peserta_magang.findAll({
+      const results = await models.Peserta_Magang.findAll({
         where: {
             tanggal_mulai: {
                 [Op.gt]: tanggal, // [Op.lt] stands for less than
@@ -1043,7 +1043,7 @@ async function exportPeserta(req, res) {
       const tid = req.params.id;
       const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
       const tanggal = moment.tz(response.data.datetime, 'Asia/Jakarta');
-      const results = await models.peserta_magang.findAll({
+      const results = await models.Peserta_Magang.findAll({
         include:[{
             model:models.Status_tugas,
             as:'status_tugas',
@@ -1107,7 +1107,7 @@ async function exportPeserta(req, res) {
     try {
       const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
       const tanggal = moment.tz(response.data.datetime, 'Asia/Jakarta');
-      const results = await models.peserta_magang.findAll({
+      const results = await models.Peserta_Magang.findAll({
         include:[{
             model: models.Presensi,
             as:'presensimagang',
@@ -1201,7 +1201,7 @@ async function exportPeserta(req, res) {
   try {
     const id = req.params.id;
     const results = await models.Presensi.findAll({ where: { p_id: id } });
-    const ambilNama = await models.peserta_magang.findByPk(id);
+    const ambilNama = await models.Peserta_Magang.findByPk(id);
     const response = await axios.get('https://worldtimeapi.org/api/timezone/Asia/Jakarta');
     const tanggal = moment.tz(response.data.datetime, 'Asia/Jakarta');
     const fileName = "Presensi " + ambilNama.nama;

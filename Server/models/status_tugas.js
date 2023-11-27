@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Status_tugas.belongsTo(models.peserta_magangs, {
+      Status_tugas.belongsTo(models.Peserta_Magang, {
         foreignKey: 'p_id', // Name of the foreign key in Presensi table
         
       });
-      Status_tugas.belongsTo(models.tugas, {
+      Status_tugas.belongsTo(models.Tugas, {
         foreignKey: 't_id', // Name of the foreign key in Presensi table
         as: 'tugas'
       });
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     status_pengerjaan: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'status_tugas',
+    modelName: 'Status_tugas',
   });
   return Status_tugas;
 };

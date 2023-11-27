@@ -6,11 +6,11 @@ const Validator = require('fastest-validator');
 
 function showTugasList(req,res){
     const id = req.params.id;
-    models.status_tugas.findAll({
+    models.Status_tugas.findAll({
       where:{p_id:id},
       order: [['id', 'DESC']],        
       include: [{
-        model: models.tugas,
+        model: models.Tugas,
         as: 'tugas',
     }]
     }).then(result =>{
@@ -43,7 +43,7 @@ function showTugas(req, res){
 function showPresensi(req, res){
     const id = req.params.id;
     if (true){
-        models.presensis.findAll({where:{p_id:id}}).then(result =>{
+        models.Presensi.findAll({where:{p_id:id}}).then(result =>{
             res.status(200).json({
                 presensi:result
             });
@@ -67,7 +67,7 @@ async function doPresensi(req, res, url) {
       // const time = moment(new Date("2023-10-30T07:59:59.0000"));
       const pid = req.params.id;
       // const baseUrl = process.env.APIDISKOMINFO;
-      const baseUrl = "https://silly-elk-cummerbund.cyclic.app/";
+      const baseUrl = "http://localhost:3000/";
       const fileName = url.replace('\\', '/');
       const hari = time.day();
       const currentDate = moment(time); // Menggunakan waktu dari WorldTimeAPI
@@ -159,7 +159,7 @@ async function doPresensi(req, res, url) {
       }
   
       if (Object.keys(presensi).length > 0) {
-        models.presensia.update(presensi, { where: { p_id: pid, tanggal: time.format('YYYY-MM-DD') } })
+        models.Presensi.update(presensi, { where: { p_id: pid, tanggal: time.format('YYYY-MM-DD') } })
           .then((result) => {
             res.status(201).json({
               message: 'Presensi successful',
@@ -191,14 +191,14 @@ function doTugas(req, res, url){
     const tid = req.params.tid;
 
     // const baseUrl = process.env.APIDISKOMINFO;
-    const baseUrl = "https://silly-elk-cummerbund.cyclic.app/";
+    const baseUrl = "http://localhost:3000/";
     const fileName = url.replace('\\' , '/');
 
     const tugas = {
         tugas_url: baseUrl + fileName,
         status_pengerjaan: true
     }
-    models.status_tugas.update(tugas, {where:{p_id:id, t_id: tid}}).then(result => {
+    models.Status_tugas.update(tugas, {where:{p_id:id, t_id: tid}}).then(result => {
         res.status(201).json({
             message: "Tugas Uploaded successfully"
         });
@@ -232,7 +232,7 @@ function editPassword(req, res){
                     });
                 }
 
-                models.peserta_magangs.update(updatedPeserta, {where:{id:id}}).then(result =>{
+                models.Peserta_Magang.update(updatedPeserta, {where:{id:id}}).then(result =>{
                     res.status(200).json({
                         message: "Peserta Magang updated successfully"
                     });

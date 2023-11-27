@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Presensi.belongsTo(models.Pesertas, {
       //   foreignKey: 'p_id', // Name of the foreign key in Presensi table
-      //   as: 'peserta_magang', // Alias for the association
+      //   as: 'peserta_Magang', // Alias for the association
       // });
     }
   }
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     p_id: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'presensis',
+    modelName: 'Presensi',
   });
   return Presensi;
 };
