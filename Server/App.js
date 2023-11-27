@@ -14,7 +14,7 @@ const userRoute = require('./routes/User');
 const imageRoute = require('./routes/Image');
 const corsOptions = {
     credentials: true, // Mengizinkan pengiriman kredensial (kuki, header, dll.)
-    origin: ['http://localhost:3000','http://localhost:3001', 'http://192.168.1.27:3000', '*'],
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://192.168.1.27:3000', 'http://192.168.1.27:3001', '*'],
 };
 
 app.use(cors(corsOptions));
